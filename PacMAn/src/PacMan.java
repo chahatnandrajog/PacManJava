@@ -201,8 +201,14 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
         }
     }
 
+    public void move() {
+        pacman.x += pacman.velocityX;
+        pacman.y += pacman.velocityY;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
+        move();
         repaint();
     }
 
