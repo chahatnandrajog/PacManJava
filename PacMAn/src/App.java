@@ -12,11 +12,16 @@ public class App {
 
         //now we're gonna create the window here
         JFrame frame = new JFrame("PacMan");
-        frame.setVisible(true);
+        //frame.setVisible(true);
         frame.setSize(boardWidth, boardHeight);
         frame.setLocationRelativeTo(null); //puts window in center
         frame.setResizable(false); //so player can't change window size
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exits if player hits x
 
+
+        PacMan pacmanGame = new PacMan();
+        frame.add(pacmanGame);
+        frame.pack();
+        frame.setVisible(true);
     }
 }
