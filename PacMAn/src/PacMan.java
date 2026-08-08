@@ -96,9 +96,7 @@ public class PacMan extends JPanel {
         pacmanRightImage = new ImageIcon(getClass().getResource("./pacmanRight.png")).getImage();
 
         loadMap();
-        System.out.println(walls.size());
-        System.out.println(foods.size());
-        System.out.println(ghosts.size());
+       
     }
 
     //creating loadmap function
@@ -146,5 +144,14 @@ public class PacMan extends JPanel {
                 }
             }
         }
+    }
+
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        draw(g);
+    }
+
+    public void draw(Graphics g) {
+        g.fillRect(pacman.x, pacman.y, pacman.width, pacman.height);
     }
 }
