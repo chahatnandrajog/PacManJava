@@ -64,6 +64,10 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
             }
         }
 
+        void reset(){
+            this.x = this.startX;
+            this.y = this.startY;
+        }
     }
 
     private int rowCount = 21; 
@@ -245,6 +249,10 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
 
         //checking ghosts collisions
         for (Block ghost: ghosts) {
+            if (collision(ghost, pacman)) {
+                lives -= 1;
+                resetPositions();
+            }
             if (ghost.y == tileSize * 9 && ghost.direction != 'U' && ghost.direction != 'D'){
                 ghost.updateDirection('U');
             }
@@ -276,6 +284,18 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
                a.x + a.width > b.x &&
                a.y < b.y + b.height &&
                a.y + a.height > b.y;
+    }
+
+    public void resetPositions() {
+        pacman.reset();
+        pacman.velocityX = 0;
+        pacman.velocityY = 0;
+        for (Block ghost : ghosts) {
+            ghost.reset();
+            char newDirection = directions[random.nextInt(4)];
+            ghost.updateDirection(newDirection);
+
+        }
     }
 
     @Override
