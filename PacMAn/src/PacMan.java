@@ -121,6 +121,10 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
     char[] directions = {'U','D', 'L', 'R'};
     Random random = new Random();
 
+    int score = 0;
+    int lives = 3;
+    boolean gameOver = false;
+
     PacMan() { //constructor
         setPreferredSize(new Dimension(boardWidth, boardHeight));
         setBackground(Color.BLACK);
@@ -216,6 +220,14 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
         for (Block food: foods) {
             g.fillRect(food.x, food.y, food.width, food.height); //we are not doing image for foods
         }
+        //score
+        g.setFont(new Font("Arial", Font.PLAIN, 18));
+        if (gameOver) {
+            g.drawString("Game Over: " + String.valueOf(score), tileSize/2, tileSize/2);
+        }
+        else {
+            g.drawString("x" + String.valueOf(lives) + "Score: " + String.valueOf(score), tileSize/2, tileSize/2);
+        }
     }
 
     public void move() {
@@ -247,6 +259,16 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
                 }
             }
         }
+
+        //check food collision
+        Block foodEaten = null;
+        for (Block food : foods) {
+            if (collision(pacman, food)) {
+                foodEaten = food;
+                score += 10;
+            }
+        }
+        foods.remove(foodEaten);
     }
 
     public boolean collision(Block a, Block b) {
